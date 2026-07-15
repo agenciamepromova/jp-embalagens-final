@@ -13,3 +13,20 @@
 .portfolio-grid figcaption{padding:14px 16px 16px;font-weight:850;color:#18301f;font-size:14px}
 @media(max-width:980px){.portfolio-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-budget,.hero-portfolio{display:none}}
 @media(max-width:560px){.portfolio-grid{grid-template-columns:1fr 1fr;gap:10px}.portfolio-grid figure{border-radius:14px}.portfolio-grid figcaption{font-size:12px;padding:10px}.hero-visual{min-height:430px}.hero-visual>img{height:430px;object-fit:cover;object-position:62% center}}
+
+/* Galeria ampliada do portfólio */
+.portfolio-grid figure{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:32px;background:rgba(2,8,4,.94);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;touch-action:pan-y}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox-content{margin:0;max-width:min(1100px,84vw);max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:14px}
+.lightbox-content img{max-width:100%;max-height:78vh;width:auto;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.5);background:#fff;user-select:none;-webkit-user-drag:none}
+.lightbox-content figcaption{color:#fff;font-weight:800;text-align:center;font-size:16px}
+.lightbox-close,.lightbox-nav{position:absolute;border:0;color:#fff;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);cursor:pointer;display:grid;place-items:center;transition:.2s}
+.lightbox-close:hover,.lightbox-nav:hover{background:rgba(202,161,91,.35);transform:scale(1.06)}
+.lightbox-close{top:18px;right:22px;width:48px;height:48px;border-radius:50%;font-size:34px;line-height:1}
+.lightbox-nav{top:50%;transform:translateY(-50%);width:54px;height:72px;border-radius:16px;font-size:48px}
+.lightbox-nav:hover{transform:translateY(-50%) scale(1.05)}
+.lightbox-prev{left:24px}.lightbox-next{right:24px}
+body.lightbox-open{overflow:hidden}
+@media(hover:none){.portfolio-grid figure:hover img{transform:none}.portfolio-grid figure:active img{transform:scale(.985)}}
+@media(max-width:700px){.lightbox{padding:16px}.lightbox-content{max-width:94vw;max-height:92vh}.lightbox-content img{max-height:76vh;border-radius:12px}.lightbox-content figcaption{font-size:14px;padding:0 44px}.lightbox-close{top:10px;right:10px;width:44px;height:44px}.lightbox-nav{top:auto;bottom:18px;width:48px;height:48px;border-radius:50%;font-size:36px;transform:none}.lightbox-nav:hover{transform:scale(1.05)}.lightbox-prev{left:calc(50% - 62px)}.lightbox-next{right:calc(50% - 62px)}}
