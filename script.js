@@ -65,3 +65,65 @@ document.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft')showItem(currentIndex-1);
   if(e.key==='ArrowRight')showItem(currentIndex+1);
 });
+
+// Eventos padronizados enviados ao dataLayer para GA4, Google Ads e Meta Ads via GTM.
+window.dataLayer = window.dataLayer || [];
+function trackEvent(eventName, parameters = {}) {
+  window.dataLayer.push({ event: eventName, ...parameters });
+}
+
+// Cliques em canais de contato.
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href]');
+  if (!link) return;
+
+  const href = link.getAttribute('href') || '';
+  const label = (link.textContent || link.getAttribute('aria-label') || '').trim();
+
+  if (/wa\.me|api\.whatsapp\.com|whatsapp:/i.test(href)) {
+    trackEvent('click_whatsapp', {
+      link_url: link.href,
+      link_text: label,
+      page_location: window.location.href
+    });
+  } else if (href.startsWith('tel:')) {
+    trackEvent('click_phone', {
+      link_url: link.href,
+      link_text: label,
+      page_location: window.location.href
+    });
+  } else if (href.startsWith('mailto:')) {
+    trackEvent('click_email', {
+      link_url: link.href,
+      link_text: label,
+      page_location: window.location.href
+    });
+  }
+});
+
+// Envio de formulários presentes ou adicionados futuramente ao site.
+document.addEventListener('submit', (event) => {
+  const form = event.target;
+  if (!(form instanceof HTMLFormElement)) return;
+  trackEvent('generate_lead', {
+    form_id: form.id || '',
+    form_name: form.getAttribute('name') || '',
+    page_location: window.location.href
+  });
+});
+
+// Engajamento de 60 segundos (evento secundário, não deve ser usado como lead principal).
+setTimeout(() => {
+  trackEvent('engaged_60_seconds', { page_location: window.location.href });
+}, 60000);
+
+// Scroll de 90%, disparado uma única vez.
+let scroll90Sent = false;
+window.addEventListener('scroll', () => {
+  if (scroll90Sent) return;
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  if (scrollable > 0 && window.scrollY / scrollable >= 0.9) {
+    scroll90Sent = true;
+    trackEvent('scroll_90', { page_location: window.location.href });
+  }
+}, { passive: true });

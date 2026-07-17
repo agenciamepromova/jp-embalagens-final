@@ -22,3 +22,11 @@ Depois do deploy, vá em **Project > Settings > Domains**, adicione o domínio e
 
 ## WhatsApp usado
 +55 (62) 8236-8715
+
+## Mensuração instalada
+
+- Google Tag Manager: `GTM-TDLBJ9NV`
+- Google Analytics 4 deve ser carregado pelo GTM com o ID `G-QQWBVXCJRB`
+- Eventos enviados ao `dataLayer`: `click_whatsapp`, `click_phone`, `click_email`, `generate_lead`, `engaged_60_seconds` e `scroll_90`
+
+Após publicar o site, publique também o contêiner do GTM e valide pelo modo **Visualizar / Tag Assistant**.
